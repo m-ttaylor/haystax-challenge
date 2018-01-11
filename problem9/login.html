@@ -1,0 +1,93 @@
+<!doctype html>
+
+<html ng-app="myApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+  </head>
+  <body>
+  	<h1>Register a New User</h1>
+	<form name="userForm" novalidate>
+		<p>Email:
+		<br>
+			<input name="email" type="text" ng-model="email" required email-valid>
+			<span style="color:red" ng-show="userForm.email.$dirty && userForm.email.$invalid">
+			<span ng-show="userForm.email.$error.required">Email is required.</span>
+			<span ng-show="userForm.email.$invalid && !userForm.email.$error.required">Invalid email address.</span>
+			</span>
+		</p>
+		<p>Phone Number:
+		<br>
+			<input name="phone" type="text" ng-model="phone" required number-valid>
+			<span style="color:red" ng-show="userForm.phone.$dirty && userForm.phone.$invalid">
+			<span ng-show="userForm.phone.$error.required">Phone number is required.</span>
+			<span ng-show="userForm.phone.$invalid && !userForm.phone.$error.required">
+				Please input a number of form xxxxxxxxxx or (xxx) xxx-xxxx</span>
+			</span>
+		</p>
+		<p>Password:
+		<br>
+			<input name="password" type=password ng-model="password" required>
+			<span style="color:red" ng-show="userForm.password.$dirty && userForm.password.$invalid">
+			<span ng-show="userForm.password.$error.required">Password is required.</span>
+			</span>
+		</p>
+		
+		<div>
+			<button name=register_btn ng-click="userForm.submitted=true" ng-disabled="userForm.phone.$invalid ||
+			userForm.email.$invalid || userForm.password.$invalid">Register</button>
+			<hr>
+			<p ng-show="userForm.submitted">Thank you, {{email}}, for registering a new user!</p>
+		</div>
+		
+	</form>
+
+   
+  </body>
+</html>
+
+<script>
+//validate email
+var app = angular.module('myApp', []);
+app.directive('emailValid', function() {
+	return {
+		require: 'ngModel',
+		link: function(scope, element, attr, mCtrl) {
+			function emailValidate(value) {
+				if (value.indexOf('@')> -1) {
+					mCtrl.$setValidity('charAt', true);
+				} 
+				else {
+					mCtrl.$setValidity('charAt', false);
+				}
+				return value;
+			}
+			mCtrl.$parsers.push(emailValidate);
+		}
+	};
+});
+
+//validate phone number
+app.directive('numberValid', function() {
+	return {
+		require: 'ngModel',
+		link: function(scope, element, attr, mCtrl) {
+			function phoneValidate(value) {
+				//ignore the first instance of parentheses, space, and a hyphen
+				value = value.replace(" ", "");
+				value = value.replace("(", "");
+				value = value.replace(")", "");
+				value = value.replace("-", "");
+				is_int = (!isNaN(value) && parseInt(Number(value)) == value && !isNaN(parseInt(value, 10)));
+				if (is_int && value.length > 9 && value.length <= 15) {
+					mCtrl.$setValidity('isInt', true);
+				} 
+				else {
+					mCtrl.$setValidity('isInt', false);
+				}
+				return value;
+			}
+			mCtrl.$parsers.push(phoneValidate);
+		}
+	};
+});
+</script>

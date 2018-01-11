@@ -1,0 +1,2 @@
+graft tsearch/templates
+graft tsearch/static

@@ -1,0 +1,21 @@
+<html>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <head>
+        <title>tsearch</title>
+    </head>
+<body>
+<p>
+</p>
+<h2>Last 5 tweets:</h2>
+<ul class=entries>
+  {% for entry in entries %}
+    <li>date: {{ entry.date }}</li>
+    <h2><li>"{{ entry.text }}"</li></h2>
+    <li>word count: {{ entry.count }}</li>
+    <hr>
+  {% else %}
+    <li>No posts found for that user</li>
+  {% endfor %}
+  </ul>
+</body>
+</html>
