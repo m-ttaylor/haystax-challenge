@@ -10,15 +10,8 @@ db = client.haystax
 
 db.documents.remove()
 
-words_db = pd.read_csv("../20k.txt", sep=" ", header=None)
+words_db = pd.read_csv("20k.txt", sep=" ", header=None)
 words_db = words_db.sample(frac=0.1, replace=True)
-print(words_db.size)
-# sample = words_db.sample(3);
-# for word in sample[0]:
-#     print(word)
-#
-# print("--------------")
-# print(sample[0].tolist())
 
 rd.seed(123456789)
 for i in range(100):
