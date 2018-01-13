@@ -7,6 +7,7 @@
   <body>
   	<h1>Register a New User</h1>
 	<form name="userForm" novalidate>
+	  <div ng-show="!userForm.submitted">
 		<p>Email:
 		<br>
 			<input name="email" type="text" ng-model="email" required email-valid>
@@ -36,11 +37,10 @@
 			<button name=register_btn ng-click="userForm.submitted=true" ng-disabled="userForm.phone.$invalid ||
 			userForm.email.$invalid || userForm.password.$invalid">Register</button>
 			<hr>
-			<p ng-show="userForm.submitted">Thank you, {{email}}, for registering a new user!</p>
 		</div>
-		
+	  </div>
+	  <p ng-show="userForm.submitted">Thank you, {{email}}, for registering a new user!</p>
 	</form>
-
    
   </body>
 </html>
@@ -53,7 +53,8 @@ app.directive('emailValid', function() {
 		require: 'ngModel',
 		link: function(scope, element, attr, mCtrl) {
 			function emailValidate(value) {
-				if (value.indexOf('@')> -1) {
+				valid = (value.indexOf('@') > -1) && value.length >= 5 && (value.indexOf('.') > -1);
+				if (valid) {
 					mCtrl.$setValidity('charAt', true);
 				} 
 				else {
