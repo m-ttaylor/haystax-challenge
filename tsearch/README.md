@@ -4,11 +4,14 @@
 ```CONSUMER_KEY = 'XXXXXXXXXXXX'
 CONSUMER_SECRET = 'XXXXXXXXXX'
 ACCESS_KEY = 'XXXX-XXXXXXXXX'
-ACCESS_SECRET = 'XXXXXXXXXXX'```
+ACCESS_SECRET = 'XXXXXXXXXXX'
+```
   with your twitter API credentials.
 
 * then, in the root `tsearch` directory, run the following commands:
- ```export (on linux)/set (on windows) FLASK_APP = tsearch
+ ```
+ export (on linux)/set (on windows) FLASK_APP = tsearch
  export/set TSEARCH_SETTINGS = config.py
- flask run```
+ flask run
+ ```
  and navigate to the server's address as listed in the terminal.
